@@ -1,0 +1,291 @@
+$primary-bg: #1e1e1e;
+$calendar-bg: #2d2d2d;
+$modal-bg: #2d2d2d;
+$text-color: rgba(255, 255, 255, 0.8);
+$text-muted: #aaa;
+$today-bg: #0078d7;
+$today-border: #00aaff;
+$in-range-bg: #005a9e;
+$hover-bg: #3a3a3a;
+$blur-color: #555;
+$note-indicator: red;
+$button-bg: #0078d7;
+$button-hover-bg: #005a9e;
+$border-color: #444;
+$light-bg: #ffffff;
+$light-text: #213547;
+$link-color: #646cff;
+$link-hover-color: #535bf2;
+$light-link-hover: #747bff;
+
+$calendar-width: 300px;
+$day-size: 38px;
+$modal-width: 400px;
+$textarea-height: 60px;
+$textarea-edit-height: 60px;
+
+@mixin button-styles($bg: $button-bg, $hover-bg: $button-hover-bg) {
+    background: $bg;
+    border: none;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.25s;
+
+    &:hover {
+        background: $hover-bg;
+    }
+}
+
+@mixin global-button-styles {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 10px 19px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.25s;
+
+    &:hover {
+        border-color: $link-color;
+    }
+
+    &:focus,
+    &:focus-visible {
+        outline: 4px auto;
+    }
+}
+
+:root {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 24px;
+    font-weight: 400;
+    color-scheme: light dark;
+    color: $text-color;
+    background-color: $primary-bg;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+    background-color: $primary-bg;
+    color: $text-color;
+    font-family: sans-serif;
+}
+
+a {
+    font-weight: 500;
+    color: $link-color;
+    text-decoration: inherit;
+
+    &:hover {
+        color: $link-hover-color;
+    }
+}
+
+h1 {
+    font-size: 51.2px;
+    line-height: 17.6px;
+}
+
+.calendar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 200vh;
+    background-color: $primary-bg;
+}
+
+.calendar {
+    width: 300px;
+    margin: auto;
+    padding: 10px;
+    background-color: $calendar-bg;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #000;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        color: $text-color;
+
+        .title {
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        button {
+            background: none;
+            border: none;
+            color: $text-color;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    }
+
+    .weekdays,
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        text-align: center;
+    }
+
+    .weekday {
+        padding: 5px 0;
+        font-size: 12px;
+        color: $text-muted;
+    }
+
+    .day {
+        width: 38px;
+        height: 38px;
+        margin: 2px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        color: $text-color;
+
+        &:hover {
+            background-color: $hover-bg;
+        }
+
+        &.blur {
+            color: $blur-color;
+        }
+
+        &.today {
+            background-color: $today-bg;
+            color: $text-color;
+            border: 2px solid $today-border;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        &.in-range {
+            background-color: $in-range-bg;
+            color: $text-color;
+        }
+
+        &.has-notes {
+            position: relative;
+
+            .note-indicator {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                width: 8px;
+                height: 8px;
+                background-color: $note-indicator;
+                border-radius: 50%;
+            }
+        }
+    }
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .modal-content {
+        background: $modal-bg;
+        padding: 20px;
+        border-radius: 8px;
+        width: 400px;
+        max-height: 80vh;
+        overflow-y: auto;
+        position: relative;
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: $text-color;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    }
+}
+
+.note-list {
+    margin-top: 20px;
+
+    .note-item {
+        border-bottom: 1px solid $border-color;
+        padding: 10px 0;
+
+        p {
+            margin: 0 0 5px;
+        }
+
+        small {
+            color: $text-muted;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        button {
+            @include button-styles;
+            margin-right: 10px;
+        }
+
+        textarea {
+            width: 95%;
+            height: 60px;
+            background: $hover-bg;
+            border: none;
+            border-radius: 4px;
+            color: $text-color;
+            padding: 10px;
+            resize: none;
+        }
+    }
+}
+
+.note-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    textarea {
+        width: 95%;
+        height: 60px;
+        background: $hover-bg;
+        border: none;
+        border-radius: 4px;
+        color: $text-color;
+        padding: 10px;
+        resize: none;
+    }
+
+    button {
+        @include button-styles;
+    }
+}
+
+button {
+    @include global-button-styles;
+}
