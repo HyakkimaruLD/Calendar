@@ -44,3 +44,4 @@ export default function NoteList({ notes, onEdit, onDelete }) {
         </div>
     );
 }
+
