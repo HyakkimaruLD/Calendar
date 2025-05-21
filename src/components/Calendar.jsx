@@ -100,11 +100,6 @@ export default function Calendar() {
         setIsModalOpen(true);
     };
 
-    // const isInRange = (date) => {
-    //     if (!startDate || !endDate) return false;
-    //     return date >= startDate && date <= endDate;
-    // };
-
     const hasNotes = (date) => {
         const dateKey = date.toISOString().split('T')[0]; // Формат YYYY-MM-DD
         return notes[dateKey] && notes[dateKey].length > 0;
